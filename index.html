@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -28,17 +28,42 @@
               <h4>{{movie.type}}</h4>
               <p v-html="movie.description"></p>
               <div class="price">${{movie.price}}</div>
-              <button class="add" @click="addCart(movie)">+ Add to Cart</button>
+              <button class="add" @click="addCart(movie, $event)">
+                + Add to Cart
+              </button>
             </div>
           </div>
         </div>
       </div>
+      <!-- 新增點選時的動畫 -->
+      <div
+        class="buyBox"
+        :style="bgCss(currentMovie.cover)"
+        v-if="currentMovie"
+      ></div>
 
       <!-- cart control -->
-      <div class="fixed-control">
+      <div class="fixed-control" @click="isCartOpen=!isCartOpen">
         <p>
           <i class="fa-solid fa-cart-shopping"></i><span>{{cart.length}}</span>
         </p>
+      </div>
+      <div class="control" v-if="isCartOpen">
+        <div class="panel">
+          <h2>Movie Cart</h2>
+          <ul>
+            <li v-for="(movie, mid) in cart">
+              <div class="thumbnail" :style="bgCss(movie.cover)"></div>
+              <h3>{{movie.name}}</h3>
+              <div class="price">
+                <h3>${{movie.price}}</h3>
+              </div>
+            </li>
+            <li v-if="!cart.length">完了!這裡沒有東西!!!</li>
+          </ul>
+          <hr />
+          <h2>$ {{totalPrice}}</h2>
+        </div>
       </div>
     </div>
 
