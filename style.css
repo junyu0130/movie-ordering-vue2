@@ -224,3 +224,21 @@ button {
 .control .ticketsCount button {
   cursor: pointer;
 }
+
+.control .dropMovie {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  margin: 10px;
+  font-size: 20px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  color: #444;
+  cursor: pointer;
+}
+
+.control .dropMovie:hover {
+  background-color: #fd4141;
+  color: #f0f0f0;
+}

@@ -55,8 +55,9 @@
             <li v-for="(movie, mid) in cart">
               <div class="thumbnail" :style="bgCss(movie.cover)"></div>
               <h3>{{movie.name}}</h3>
+              <div class="dropMovie" @click="delMovie(movie)">刪除</div>
               <div class="ticketsCount">
-                <button class="drop" @click="dropTickets(movie)">
+                <button class="drop" @click="delTickets(movie)">
                   <i class="fa-solid fa-minus"></i>
                 </button>
                 {{movie.tickets}}

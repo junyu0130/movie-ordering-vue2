@@ -59,10 +59,20 @@ var vm = new Vue({
       let theMovie = this.cart.find((m) => m.name == movie.name);
       theMovie.tickets++;
     },
-    dropTickets(movie) {
+    delTickets(movie) {
       let theMovie = this.cart.find((m) => m.name == movie.name);
-      if (--theMovie.tickets <= 0) {
-        theMovie.tickets = 1;
+      theMovie.tickets--;
+      if (theMovie.tickets <= 0) {
+        this.delMovie(movie, theMovie);
+      }
+    },
+    delMovie(movie, theMovieInCart) {
+      if (confirm("確定要移除這個項目嗎?")) {
+        const delIndex = this.cart.findIndex((m) => m.name == movie.name);
+        this.cart.splice(delIndex, 1);
+      } else {
+        theMovieInCart.tickets++;
+        console.log("no");
       }
     },
   },
@@ -75,7 +85,7 @@ var vm = new Vue({
   computed: {
     totalPrice() {
       return this.cart
-        .map((movie) => movie.price)
+        .map((movie) => movie.price * movie.tickets)
         .reduce((total, p) => total + p, 0);
     },
   },
