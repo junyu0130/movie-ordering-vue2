@@ -9,7 +9,11 @@ html,
 body {
   height: 100%;
   margin: 0;
-  font-family: "cwTeXYen", sans-serif;
+  font-family: "cwTeXYen", sans-serif, monospace;
+}
+
+button {
+  font-family: "cwTeXYen", sans-serif, monospace;
 }
 
 #app {
@@ -206,4 +210,17 @@ body {
 
 .control .price {
   float: right;
+}
+
+.control .ticketsCount,
+.control .ticketsCount * {
+  display: flex;
+  margin: 10px;
+  padding: 3px;
+  justify-content: center;
+  align-items: center;
+}
+
+.control .ticketsCount button {
+  cursor: pointer;
 }

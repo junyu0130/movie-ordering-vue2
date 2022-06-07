@@ -55,8 +55,17 @@
             <li v-for="(movie, mid) in cart">
               <div class="thumbnail" :style="bgCss(movie.cover)"></div>
               <h3>{{movie.name}}</h3>
+              <div class="ticketsCount">
+                <button class="drop" @click="dropTickets(movie)">
+                  <i class="fa-solid fa-minus"></i>
+                </button>
+                {{movie.tickets}}
+                <button class="add" @click="addTickets(movie)">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
               <div class="price">
-                <h3>${{movie.price}}</h3>
+                <h3>${{movie.price*movie.tickets}}</h3>
               </div>
             </li>
             <li v-if="!cart.length">完了!這裡沒有東西!!!</li>

@@ -47,8 +47,23 @@ var vm = new Vue({
       });
 
       setTimeout(() => {
-        this.cart.push(movie);
+        if (this.cart.includes(movie)) {
+          this.cart.find((m) => m.name == movie.name).tickets++;
+        } else {
+          this.cart.push(movie);
+          this.cart.find((m) => m.name == movie.name).tickets = 1;
+        }
       }, 1000);
+    },
+    addTickets(movie) {
+      let theMovie = this.cart.find((m) => m.name == movie.name);
+      theMovie.tickets++;
+    },
+    dropTickets(movie) {
+      let theMovie = this.cart.find((m) => m.name == movie.name);
+      if (--theMovie.tickets <= 0) {
+        theMovie.tickets = 1;
+      }
     },
   },
   watch: {
