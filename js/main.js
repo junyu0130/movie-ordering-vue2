@@ -27,33 +27,38 @@ var vm = new Vue({
       });
     },
     addCart(movie, evt) {
-      this.currentMovie = movie;
-      let target = evt.target;
-      this.$nextTick(() => {
-        TweenMax.fromTo(
-          ".buyBox",
-          1,
-          {
-            opacity: 1,
-            left: $(target).offset().left,
-            top: $(target).offset().top,
-          },
-          {
-            opacity: 0,
-            left: $(".fixed-control").offset().left,
-            top: $(".fixed-control").offset().top,
-          }
-        );
-      });
+      if (movie.tickets > 0) {
+        this.currentMovie = movie;
+        let target = evt.target;
+        this.$nextTick(() => {
+          TweenMax.fromTo(
+            ".buyBox",
+            1,
+            {
+              opacity: 1,
+              left: $(target).offset().left,
+              top: $(target).offset().top,
+            },
+            {
+              opacity: 0,
+              left: $(".fixed-control").offset().left,
+              top: $(".fixed-control").offset().top,
+            }
+          );
+        });
 
-      setTimeout(() => {
-        if (this.cart.includes(movie)) {
-          this.cart.find((m) => m.name == movie.name).tickets++;
-        } else {
-          this.cart.push(movie);
-          this.cart.find((m) => m.name == movie.name).tickets = 1;
-        }
-      }, 700);
+        setTimeout(() => {
+          if (this.cart.includes(movie)) {
+            this.cart.find((m) => m.name == movie.name).tickets++;
+          } else {
+            this.cart.push(movie);
+            this.cart.find((m) => m.name == movie.name).tickets = movie.tickets;
+          }
+        }, 700);
+      } else {
+        alert("票數至少要有一張!");
+        movie.tickets = 1;
+      }
     },
     addTickets(movie) {
       let theMovie = this.cart.find((m) => m.name == movie.name);

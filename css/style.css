@@ -101,6 +101,18 @@ button {
   opacity: 0.8;
   min-height: 5em;
 }
+
+.card .right-bottom {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card .right-bottom input {
+  width: 10%;
+  text-align: center;
+}
+
 .card .right .price {
   display: inline-block;
   margin-right: 20px;

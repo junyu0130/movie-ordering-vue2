@@ -28,10 +28,14 @@
               <h2>{{movie.name}}</h2>
               <h4>{{movie.type}}</h4>
               <p v-html="movie.description"></p>
-              <div class="price">${{movie.price}}</div>
-              <button class="add" @click="addCart(movie, $event)">
-                + Add to Cart
-              </button>
+              <span class="right-bottom">
+                <div class="price">${{movie.price}}</div>
+                票數
+                <input type="text" v-model.number="movie.tickets" />
+                <button class="add" @click="addCart(movie, $event)">
+                  + Add to Cart
+                </button>
+              </span>
             </div>
           </div>
         </div>
