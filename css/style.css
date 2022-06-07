@@ -242,3 +242,21 @@ button {
   background-color: #fd4141;
   color: #f0f0f0;
 }
+
+.control .panel-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.control .panel-bottom button {
+  font-size: 1.5em;
+  padding: 5px;
+  margin: 0 3px 0;
+  border-radius: 5px;
+}
+
+.control .panel-bottom button:hover {
+  background-color: rgba(240, 240, 240, 0.7);
+  transition: 250ms;
+}

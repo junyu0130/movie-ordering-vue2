@@ -53,7 +53,7 @@ var vm = new Vue({
           this.cart.push(movie);
           this.cart.find((m) => m.name == movie.name).tickets = 1;
         }
-      }, 1000);
+      }, 700);
     },
     addTickets(movie) {
       let theMovie = this.cart.find((m) => m.name == movie.name);
@@ -74,6 +74,21 @@ var vm = new Vue({
         theMovieInCart.tickets++;
         console.log("no");
       }
+    },
+    clearCart() {
+      if (confirm("確定要清空購物車中的所有項目嗎?")) {
+        this.cart = [];
+      }
+    },
+    checkout() {
+      let windowObjectReference;
+      let windowFeatures = "left=100,top=100,width=480,height=320";
+
+      windowObjectReference = window.open(
+        `checkout.html?cartLength=${this.cart.length}&totalPrice=${this.totalPrice}`,
+        "checkout",
+        windowFeatures
+      );
     },
   },
   watch: {

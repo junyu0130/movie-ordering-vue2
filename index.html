@@ -11,7 +11,8 @@
       integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
     <div id="app">
@@ -69,10 +70,16 @@
                 <h3>${{movie.price*movie.tickets}}</h3>
               </div>
             </li>
-            <li v-if="!cart.length">完了!這裡沒有東西!!!</li>
+            <li v-if="!cart.length"><h2>糟糕!這裡沒有東西!!!</h2></li>
           </ul>
           <hr />
-          <h2>$ {{totalPrice}}</h2>
+          <span class="panel-bottom">
+            <h2>$ {{totalPrice}}</h2>
+            <span class="btns">
+              <button class="clearCart" @click="clearCart()">清空購物車</button>
+              <button class="checkout" @click="checkout()">結帳</button>
+            </span>
+          </span>
         </div>
       </div>
     </div>
@@ -98,6 +105,6 @@
       integrity="sha512-8Wy4KH0O+AuzjMm1w5QfZ5j5/y8Q/kcUktK9mPUVaUoBvh3QPUZB822W/vy7ULqri3yR8daH3F58+Y8Z08qzeg=="
       crossorigin="anonymous"
     ></script>
-    <script src="script.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>
