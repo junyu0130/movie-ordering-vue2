@@ -16,10 +16,16 @@
   </head>
   <body>
     <div id="app">
-      <div class="title">Movie Ordering</div>
+      <div class="title">
+        Movie Ordering
+        <span class="search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" v-model="selectVal" />
+        </span>
+      </div>
       <div class="movie" @wheel.prevent="wheel($event)">
         <div class="cards">
-          <div class="card" v-for="movie in movies">
+          <div class="card" v-for="(movie, mid) in filterSearch">
             <div class="left">
               <!-- <img :src="movie.cover" alt="movie cover" style="width: 200px" /> -->
               <div class="cover" :style="bgCss(movie.cover)"></div>
@@ -37,6 +43,9 @@
                 </button>
               </span>
             </div>
+          </div>
+          <div class="card notFind" v-if="!filterSearch.length">
+            <h1>無此影片</h1>
           </div>
         </div>
       </div>

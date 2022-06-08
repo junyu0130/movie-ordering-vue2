@@ -5,6 +5,7 @@ var vm = new Vue({
     movies: [],
     cart: [],
     currentMovie: null,
+    selectVal: "",
   },
   // 取得電影資料
   created() {
@@ -107,6 +108,11 @@ var vm = new Vue({
       return this.cart
         .map((movie) => movie.price * movie.tickets)
         .reduce((total, p) => total + p, 0);
+    },
+    filterSearch() {
+      return this.movies.filter((searchResult) =>
+        searchResult.name.match(this.selectVal)
+      );
     },
   },
 });

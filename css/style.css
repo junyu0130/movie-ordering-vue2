@@ -12,7 +12,8 @@ body {
   font-family: "cwTeXYen", sans-serif, monospace;
 }
 
-button {
+button,
+input {
   font-family: "cwTeXYen", sans-serif, monospace;
 }
 
@@ -26,12 +27,25 @@ button {
 }
 
 .title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
   position: fixed;
   left: 50px;
   top: 50px;
   color: white;
   font-size: 30px;
   font-weight: bold;
+}
+
+.title .search,
+.title .search * {
+  display: flex;
+  align-items: center;
+  font-size: 26px;
+  padding: 3px;
+  margin: 5px;
 }
 
 .movie {
@@ -42,12 +56,13 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 75%;
   justify-content: left;
   margin-left: 20vw;
   margin-right: 20vw;
   position: relative;
   left: 0px;
+  top: 100px;
   transition: 0.5s, left 0s;
 }
 
