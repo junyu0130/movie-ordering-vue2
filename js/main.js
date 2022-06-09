@@ -2,6 +2,7 @@ var vm = new Vue({
   el: "#app",
   data: {
     isCartOpen: false,
+    editing: false,
     movies: [],
     cart: [],
     currentMovie: null,
@@ -28,38 +29,46 @@ var vm = new Vue({
       });
     },
     addCart(movie, evt) {
-      if (movie.tickets > 0) {
-        this.currentMovie = movie;
-        let target = evt.target;
-        this.$nextTick(() => {
-          TweenMax.fromTo(
-            ".buyBox",
-            1,
-            {
-              opacity: 1,
-              left: $(target).offset().left,
-              top: $(target).offset().top,
-            },
-            {
-              opacity: 0,
-              left: $(".fixed-control").offset().left,
-              top: $(".fixed-control").offset().top,
-            }
-          );
-        });
-
-        setTimeout(() => {
-          if (this.cart.includes(movie)) {
-            this.cart.find((m) => m.name == movie.name).tickets++;
-          } else {
-            this.cart.push(movie);
-            this.cart.find((m) => m.name == movie.name).tickets = movie.tickets;
-          }
-        }, 700);
-      } else {
+      if (movie.inventory < movie.tickets) {
+        alert("票數超過庫存!請修改票數");
+        movie.tickets = 1;
+        return;
+      }
+      if (movie.tickets <= 0) {
         alert("票數至少要有一張!");
         movie.tickets = 1;
+        return;
       }
+      this.currentMovie = movie;
+      movie.tickets = Math.floor(movie.tickets);
+      let target = evt.target;
+      this.$nextTick(() => {
+        TweenMax.fromTo(
+          ".buyBox",
+          1,
+          {
+            opacity: 1,
+            left: $(target).offset().left,
+            top: $(target).offset().top,
+          },
+          {
+            opacity: 0,
+            left: $(".fixed-control").offset().left,
+            top: $(".fixed-control").offset().top,
+          }
+        );
+      });
+
+      setTimeout(() => {
+        let theMovie = this.cart.find((m) => m.name == movie.name);
+        if (theMovie) {
+          theMovie.tickets += movie.tickets;
+        } else {
+          let newMovie = JSON.parse(JSON.stringify(movie));
+          this.cart.push(newMovie);
+          this.cart.find((m) => m.name == movie.name).tickets = movie.tickets;
+        }
+      }, 700);
     },
     addTickets(movie) {
       let theMovie = this.cart.find((m) => m.name == movie.name);
@@ -87,6 +96,14 @@ var vm = new Vue({
       }
     },
     checkout() {
+      let inventoryOut = false;
+      this.cart.forEach((movie) => {
+        inventoryOut = movie.inventory < movie.tickets;
+      });
+      if (inventoryOut) {
+        alert("票數超過庫存!請修改票數");
+        return;
+      }
       let windowObjectReference;
       let windowFeatures = "left=100,top=100,width=480,height=320";
 
