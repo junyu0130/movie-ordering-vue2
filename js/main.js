@@ -24,8 +24,14 @@ var vm = new Vue({
       };
     },
     wheel(evt) {
+      let leftVal = Number.parseInt($(".cards").css("left"));
+      let min = -2380;
+      let max = 0;
+      leftVal += -evt.deltaY * 3;
+      leftVal = leftVal < min ? min : leftVal;
+      leftVal = leftVal > max ? max : leftVal;
       TweenMax.to(".cards", 0.8, {
-        left: "+=" + -evt.deltaY * 3 + "px",
+        left: leftVal + "px",
       });
     },
     addCart(movie, evt) {
@@ -92,6 +98,10 @@ var vm = new Vue({
     },
     clearCart() {
       if (confirm("確定要清空購物車中的所有項目嗎?")) {
+        if (!this.cart.length) {
+          alert("購物車已經是空的了");
+          return;
+        }
         this.cart = [];
       }
     },
@@ -112,6 +122,18 @@ var vm = new Vue({
         "checkout",
         windowFeatures
       );
+    },
+    checkInventory() {
+      if (this.movies.some((movie) => movie.inventory < 0)) {
+        alert("庫存數不能低於0");
+        this.movies.forEach((movie) => {
+          movie.inventory = movie.inventory < 0 ? 1 : movie.inventory;
+        });
+        return;
+      }
+      this.movies.forEach((movie) => {
+        movie.inventory = Math.floor(movie.inventory);
+      });
     },
   },
   watch: {

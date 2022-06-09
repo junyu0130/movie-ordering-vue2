@@ -23,13 +23,14 @@
             type="checkbox"
             name="editing"
             id="editing"
+            @click="checkInventory"
             v-model="editing"
           />
           編輯電影庫存
         </span>
         <span class="search">
           <i class="fa-solid fa-magnifying-glass"></i>
-          <input type="text" v-model="selectVal" />
+          <input type="text" placeholder="請輸入關鍵字" v-model="selectVal" />
         </span>
       </div>
       <div class="movie" @wheel.prevent="wheel($event)">
@@ -44,7 +45,12 @@
               <h4>{{movie.type}}</h4>
               <span class="inventory" :class="{showMode: !editing}">
                 總票數
-                <input type="number" min="1" v-model.number="movie.inventory" />
+                <input
+                  type="number"
+                  min="1"
+                  step="1"
+                  v-model.number="movie.inventory"
+                />
               </span>
               <p v-html="movie.description"></p>
               <span class="right-bottom">
