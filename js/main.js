@@ -1,6 +1,12 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-analytics.js";
+import {
+  getDatabase,
+  ref,
+  get,
+  child,
+} from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -14,11 +20,13 @@ const firebaseConfig = {
   messagingSenderId: "239019124172",
   appId: "1:239019124172:web:e4f9ca62c84f0065682969",
   measurementId: "G-6LFDJGGW38",
+  databaseURL: "https://movie-ordering-default-rtdb.firebaseio.com/",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+const database = getDatabase(app);
 
 var vm = new Vue({
   el: "#app",
@@ -32,10 +40,23 @@ var vm = new Vue({
   },
   // 取得電影資料
   created() {
-    let apiUrl = "movie.json";
-    axios.get(apiUrl).then((res) => {
-      this.movies = res.data;
-    });
+    // let apiUrl = "movie.json";
+    // axios.get(apiUrl).then((res) => {
+    //   this.movies = res.data;
+    // });
+    get(child(ref(database), "/"))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          snapshot.val().forEach((element) => {
+            this.movies.push(element);
+          });
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   },
   methods: {
     bgCss(url) {
