@@ -1,3 +1,25 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-analytics.js";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBoHyhzOcmpUur1hnLlJxUXKluCWFvbQ4E",
+  authDomain: "movie-ordering.firebaseapp.com",
+  projectId: "movie-ordering",
+  storageBucket: "movie-ordering.appspot.com",
+  messagingSenderId: "239019124172",
+  appId: "1:239019124172:web:e4f9ca62c84f0065682969",
+  measurementId: "G-6LFDJGGW38",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
 var vm = new Vue({
   el: "#app",
   data: {
