@@ -23,7 +23,6 @@
             type="checkbox"
             name="editing"
             id="editing"
-            @click="checkInventory"
             v-model="editing"
           />
           編輯電影庫存
@@ -51,6 +50,7 @@
                   step="1"
                   v-model.number="movie.inventory"
                 />
+                <button @click="checkInventory(movie)">儲存</button>
               </span>
               <p v-html="movie.description"></p>
               <span class="right-bottom">

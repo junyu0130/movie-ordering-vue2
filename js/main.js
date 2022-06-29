@@ -6,6 +6,7 @@ import {
   ref,
   get,
   child,
+  update,
 } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -166,17 +167,38 @@ var vm = new Vue({
         windowFeatures
       );
     },
-    checkInventory() {
-      if (this.movies.some((movie) => movie.inventory < 0)) {
+    checkInventory(movie) {
+      // if (this.movies.some((movie) => movie.inventory < 0)) {
+      //   alert("庫存數不能低於0");
+      //   this.movies.forEach((movie) => {
+      //     movie.inventory = movie.inventory < 0 ? 1 : movie.inventory;
+      //   });
+      //   return;
+      // }
+      // this.movies.forEach((movie) => {
+      //   movie.inventory = Math.floor(movie.inventory);
+      // });
+      if (movie.inventory < 0) {
         alert("庫存數不能低於0");
-        this.movies.forEach((movie) => {
-          movie.inventory = movie.inventory < 0 ? 1 : movie.inventory;
-        });
+        let movieIndex = this.movies.findIndex((m) => m.name == movie.name);
+        get(child(ref(database), `/${movieIndex}`))
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              movie.inventory = snapshot.val().inventory;
+            } else {
+              console.log("No data available");
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
         return;
       }
-      this.movies.forEach((movie) => {
-        movie.inventory = Math.floor(movie.inventory);
-      });
+      const updates = {};
+      updates[
+        `/${this.movies.findIndex((m) => m.name == movie.name)}/inventory`
+      ] = movie.inventory;
+      return update(ref(database), updates);
     },
   },
   watch: {
