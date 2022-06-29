@@ -198,7 +198,14 @@ var vm = new Vue({
       updates[
         `/${this.movies.findIndex((m) => m.name == movie.name)}/inventory`
       ] = movie.inventory;
-      return update(ref(database), updates);
+      return update(ref(database), updates)
+        .then(() => {
+          alert("儲存成功");
+        })
+        .catch((error) => {
+          console.log(error);
+          alert("儲存失敗");
+        });
     },
   },
   watch: {
