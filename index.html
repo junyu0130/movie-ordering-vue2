@@ -30,7 +30,12 @@
         </span>
         <span class="search">
           <i class="fa-solid fa-magnifying-glass"></i>
-          <input type="text" placeholder="請輸入關鍵字" v-model="selectVal" />
+          <input
+            type="text"
+            placeholder="請輸入關鍵字"
+            v-model="selectVal"
+            aria-label="search"
+          />
         </span>
       </div>
       <div class="movie" @wheel.prevent="wheel($event)">
@@ -56,7 +61,12 @@
               <span class="right-bottom">
                 <div class="price">${{movie.price}}</div>
                 QTY
-                <input type="number" min="1" v-model.number="movie.tickets" />
+                <input
+                  type="number"
+                  min="1"
+                  v-model.number="movie.tickets"
+                  aria-label="tickets"
+                />
                 <div class="inventory">剩餘票數 {{movie.inventory}}</div>
                 <button class="add" @click="addCart(movie, $event)">
                   + Add to Cart
