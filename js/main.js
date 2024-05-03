@@ -205,6 +205,18 @@ var vm = new Vue({
         .catch((error) => {
           console.log(error);
           alert("儲存失敗");
+          let movieIndex = this.movies.findIndex((m) => m.name == movie.name);
+          get(child(ref(database), `/${movieIndex}`))
+            .then((snapshot) => {
+              if (snapshot.exists()) {
+                movie.inventory = snapshot.val().inventory;
+              } else {
+                console.log("No data available");
+              }
+            })
+            .catch((error) => {
+              console.error(error);
+            });
         });
     },
   },

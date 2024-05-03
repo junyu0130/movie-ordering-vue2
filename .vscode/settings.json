@@ -6,5 +6,8 @@
     "LFDJGGW",
     "Ocmp",
     "Tchernegovski"
-  ]
+  ],
+  "codeium.enableConfig": {
+    "json": false
+  }
 }
